@@ -1,0 +1,12 @@
+{
+  "id": "builtin.language-basics-perl",
+  "name": "Language Basics Perl",
+  "description": "Provides syntax highlighting and bracket matching in Perl files.",
+  "languages": [
+    {
+      "id": "perl",
+      "extensions": [".perl"],
+      "tokenize": "src/tokenizePerl.js"
+    }
+  ]
+}
