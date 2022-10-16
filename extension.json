@@ -5,7 +5,7 @@
   "languages": [
     {
       "id": "perl",
-      "extensions": [".perl"],
+      "extensions": [".pl", ".pm", ".pod", ".t", ".pL", ".psgi"],
       "tokenize": "src/tokenizePerl.js"
     }
   ]
