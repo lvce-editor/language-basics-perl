@@ -6,7 +6,8 @@
     {
       "id": "perl",
       "extensions": [".pl", ".pm", ".pod", ".t", ".pL", ".psgi"],
-      "tokenize": "src/tokenizePerl.js"
+      "tokenize": "src/tokenizePerl.js",
+      "firstLine": "^#!.*\\bperl\\b"
     }
   ]
 }
