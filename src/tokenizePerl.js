@@ -25,6 +25,8 @@ export const TokenType = {
   VariableName: 8,
   Comment: 885,
   Text: 9,
+  KeywordControl: 10,
+  KeywordReturn: 11,
 }
 
 export const TokenMap = {
@@ -38,11 +40,13 @@ export const TokenMap = {
   [TokenType.VariableName]: 'VariableName',
   [TokenType.Comment]: 'Comment',
   [TokenType.Text]: 'Text',
+  [TokenType.KeywordControl]: 'KeywordControl',
+  [TokenType.KeywordReturn]: 'KeywordReturn',
 }
 
 const RE_LINE_COMMENT = /^#.*/s
 const RE_SELECTOR = /^[\.a-zA-Z\d\-\:>]+/
-const RE_WHITESPACE = /^ +/
+const RE_WHITESPACE = /^\s+/
 const RE_CURLY_OPEN = /^\{/
 const RE_CURLY_CLOSE = /^\}/
 const RE_PROPERTY_NAME = /^[a-zA-Z\-]+\b/
@@ -96,7 +100,23 @@ export const tokenizeLine = (line, lineState) => {
           token = TokenType.Whitespace
           state = State.TopLevelContent
         } else if ((next = part.match(RE_KEYWORD))) {
-          token = TokenType.Keyword
+          switch (next[0]) {
+            case 'unless':
+            case 'foreach':
+            case 'if':
+            case 'while':
+            case 'next':
+            case 'else':
+            case 'last':
+              token = TokenType.KeywordControl
+              break
+            case 'return':
+              token = TokenType.KeywordReturn
+              break
+            default:
+              token = TokenType.Keyword
+              break
+          }
           state = State.TopLevelContent
         } else if ((next = part.match(RE_PUNCTUATION))) {
           token = TokenType.Punctuation
