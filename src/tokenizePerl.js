@@ -108,6 +108,7 @@ export const tokenizeLine = (line, lineState) => {
             case 'next':
             case 'else':
             case 'last':
+            case 'elsif':
               token = TokenType.KeywordControl
               break
             case 'return':
