@@ -61,7 +61,7 @@ const RE_STRING_DOUBLE_QUOTE_CONTENT = /^[^"]+/
 const RE_KEYWORD =
   /^(?:case|continue|default|die|no|else|elsif|eval|exit|for|foreach|given|goto|if|last|next|redo|require|return|select|sub|switch|unless|until|use|wait|when|while)\b/
 
-const RE_VARIABLE_NAME = /^[a-zA-Z\_]+/
+const RE_VARIABLE_NAME = /^[$a-zA-Z\_]+/
 const RE_PUNCTUATION = /^[:,;\{\}\[\]\.=\(\)<>]/
 const RE_NUMERIC = /^\d+/
 
