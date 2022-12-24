@@ -27,6 +27,7 @@ export const TokenType = {
   Text: 9,
   KeywordControl: 10,
   KeywordReturn: 11,
+  Function: 12,
 }
 
 export const TokenMap = {
@@ -42,6 +43,7 @@ export const TokenMap = {
   [TokenType.Text]: 'Text',
   [TokenType.KeywordControl]: 'KeywordControl',
   [TokenType.KeywordReturn]: 'KeywordReturn',
+  [TokenType.Function]: 'Function',
 }
 
 const RE_LINE_COMMENT = /^#.*/s
@@ -113,6 +115,9 @@ export const tokenizeLine = (line, lineState) => {
               break
             case 'return':
               token = TokenType.KeywordReturn
+              break
+            case 'exit':
+              token = TokenType.Function
               break
             default:
               token = TokenType.Keyword
