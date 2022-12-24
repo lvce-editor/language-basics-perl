@@ -5,6 +5,7 @@ export const State = {
   TopLevelContent: 1,
   InsideString: 2,
   InsideLineComment: 3,
+  InsideSingleQuoteString: 4,
 }
 
 export const StateMap = {
@@ -60,10 +61,12 @@ const RE_QUOTE_DOUBLE = /^"/
 const RE_STRING_DOUBLE_QUOTE_CONTENT = /^[^"]+/
 const RE_KEYWORD =
   /^(?:case|continue|default|die|no|else|elsif|eval|exit|for|foreach|given|goto|if|last|next|redo|require|return|select|sub|switch|unless|until|use|wait|when|while)\b/
-
+const RE_STRING_SINGLE_QUOTE_CONTENT = /^[^']+/
 const RE_VARIABLE_NAME = /^[$a-zA-Z\_]+/
 const RE_PUNCTUATION = /^[:,;\{\}\[\]\.=\(\)<>]/
 const RE_NUMERIC = /^\d+/
+const RE_QUOTE_BACKTICK = /^`/
+const RE_QUOTE_SINGLE = /^'/
 
 export const initialLineState = {
   state: State.TopLevelContent,
@@ -131,6 +134,9 @@ export const tokenizeLine = (line, lineState) => {
         } else if ((next = part.match(RE_QUOTE_DOUBLE))) {
           token = TokenType.PunctuationString
           state = State.InsideString
+        } else if ((next = part.match(RE_QUOTE_SINGLE))) {
+          token = TokenType.Punctuation
+          state = State.InsideSingleQuoteString
         } else if ((next = part.match(RE_LINE_COMMENT))) {
           token = TokenType.Comment
           state = State.TopLevelContent
@@ -149,6 +155,17 @@ export const tokenizeLine = (line, lineState) => {
         } else if ((next = part.match(RE_STRING_DOUBLE_QUOTE_CONTENT))) {
           token = TokenType.String
           state = State.InsideString
+        } else {
+          throw new Error('no')
+        }
+        break
+      case State.InsideSingleQuoteString:
+        if ((next = part.match(RE_QUOTE_SINGLE))) {
+          token = TokenType.Punctuation
+          state = State.TopLevelContent
+        } else if ((next = part.match(RE_STRING_SINGLE_QUOTE_CONTENT))) {
+          token = TokenType.String
+          state = State.InsideSingleQuoteString
         } else {
           throw new Error('no')
         }
