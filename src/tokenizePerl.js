@@ -28,6 +28,7 @@ export const TokenType = {
   Text: 9,
   KeywordControl: 10,
   KeywordReturn: 11,
+  Function: 12,
 }
 
 export const TokenMap = {
@@ -43,6 +44,7 @@ export const TokenMap = {
   [TokenType.Text]: 'Text',
   [TokenType.KeywordControl]: 'KeywordControl',
   [TokenType.KeywordReturn]: 'KeywordReturn',
+  [TokenType.Function]: 'Function',
 }
 
 const RE_LINE_COMMENT = /^#.*/s
@@ -60,7 +62,7 @@ const RE_ANYTHING_UNTIL_CLOSE_BRACE = /^[^\}]+/
 const RE_QUOTE_DOUBLE = /^"/
 const RE_STRING_DOUBLE_QUOTE_CONTENT = /^[^"]+/
 const RE_KEYWORD =
-  /^(?:case|continue|default|die|no|else|elsif|eval|exit|for|foreach|given|goto|if|last|next|redo|require|return|select|sub|switch|unless|until|use|wait|when|while)\b/
+  /^(?:case|continue|default|die|no|else|elsif|eval|exit|for|foreach|given|goto|if|last|next|push|redo|require|return|select|shift|sub|switch|unless|until|use|wait|when|while)\b/
 const RE_STRING_SINGLE_QUOTE_CONTENT = /^[^']+/
 const RE_VARIABLE_NAME = /^[$a-zA-Z\_@%]+/
 const RE_PUNCTUATION = /^[:,;\{\}\[\]\.=\(\)<>\\\-\?]/
@@ -116,6 +118,13 @@ export const tokenizeLine = (line, lineState) => {
               break
             case 'return':
               token = TokenType.KeywordReturn
+              break
+            case 'shift':
+            case 'push':
+            case 'eval':
+            case 'exit':
+            case 'die':
+              token = TokenType.Function
               break
             default:
               token = TokenType.Keyword
