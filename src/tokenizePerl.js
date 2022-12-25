@@ -62,7 +62,7 @@ const RE_ANYTHING_UNTIL_CLOSE_BRACE = /^[^\}]+/
 const RE_QUOTE_DOUBLE = /^"/
 const RE_STRING_DOUBLE_QUOTE_CONTENT = /^[^"]+/
 const RE_KEYWORD =
-  /^(?:case|continue|default|die|no|else|elsif|eval|exit|for|foreach|given|goto|if|last|next|push|redo|require|return|select|shift|sub|switch|unless|until|use|wait|when|while)\b/
+  /^(?:case|continue|default|die|no|else|elsif|eval|exit|for|foreach|given|goto|if|last|next|push|redo|require|return|select|shift|sub|switch|unless|unshift|until|use|wait|when|while)\b/
 const RE_STRING_SINGLE_QUOTE_CONTENT = /^[^']+/
 const RE_VARIABLE_NAME = /^[$a-zA-Z\_@%]+/
 const RE_PUNCTUATION = /^[:,;\{\}\[\]\.=\(\)<>\\\-\?]/
@@ -120,6 +120,7 @@ export const tokenizeLine = (line, lineState) => {
               token = TokenType.KeywordReturn
               break
             case 'shift':
+            case 'unshift':
             case 'push':
             case 'eval':
             case 'exit':
