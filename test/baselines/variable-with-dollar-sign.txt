@@ -1,4 +1,4 @@
-VariableName
+Keyword
 Whitespace
 VariableName
 Punctuation
