@@ -62,13 +62,14 @@ const RE_ANYTHING_UNTIL_CLOSE_BRACE = /^[^\}]+/
 const RE_QUOTE_DOUBLE = /^"/
 const RE_STRING_DOUBLE_QUOTE_CONTENT = /^[^"]+/
 const RE_KEYWORD =
-  /^(?:case|continue|default|die|no|else|elsif|eval|exit|for|foreach|given|goto|if|last|next|push|redo|require|return|select|shift|sub|switch|unless|unshift|until|use|wait|when|while)\b/
+  /^(?:case|continue|default|die|my|no|else|elsif|eval|exit|for|foreach|given|goto|if|last|next|push|print|redo|require|return|select|shift|sub|switch|unless|unshift|until|use|wait|when|while)\b/
 const RE_STRING_SINGLE_QUOTE_CONTENT = /^[^']+/
 const RE_VARIABLE_NAME = /^[$a-zA-Z\_@%]+/
 const RE_PUNCTUATION = /^[:,;\{\}\[\]\.=\(\)<>\\\-\?]/
 const RE_NUMERIC = /^\d+/
 const RE_QUOTE_BACKTICK = /^`/
 const RE_QUOTE_SINGLE = /^'/
+const RE_FUNCTION_NAME = /^\w+(?=\s*\()/
 
 export const initialLineState = {
   state: State.TopLevelContent,
@@ -125,6 +126,7 @@ export const tokenizeLine = (line, lineState) => {
             case 'eval':
             case 'exit':
             case 'die':
+            case 'print':
               token = TokenType.Function
               break
             default:
@@ -134,6 +136,9 @@ export const tokenizeLine = (line, lineState) => {
           state = State.TopLevelContent
         } else if ((next = part.match(RE_PUNCTUATION))) {
           token = TokenType.Punctuation
+          state = State.TopLevelContent
+        } else if ((next = part.match(RE_FUNCTION_NAME))) {
+          token = TokenType.Function
           state = State.TopLevelContent
         } else if ((next = part.match(RE_VARIABLE_NAME))) {
           token = TokenType.VariableName
