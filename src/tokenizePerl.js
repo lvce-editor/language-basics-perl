@@ -65,7 +65,8 @@ const RE_KEYWORD =
   /^(?:case|continue|default|die|my|no|else|elsif|eval|exit|for|foreach|given|goto|if|last|next|push|print|redo|require|return|select|shift|sub|switch|unless|unshift|until|use|wait|when|while)\b/
 const RE_STRING_SINGLE_QUOTE_CONTENT = /^[^']+/
 const RE_VARIABLE_NAME = /^[$a-zA-Z\_@%]+/
-const RE_PUNCTUATION = /^[:,;\{\}\[\]\.=\(\)<>\\\-\?]/
+const RE_PUNCTUATION =
+  /^[:,;\{\}\[\]\.=\(\)<>\\\-\?~\|\/\[\\*\$\]^!&\+\{\}\(\)]/
 const RE_NUMERIC = /^\d+/
 const RE_QUOTE_BACKTICK = /^`/
 const RE_QUOTE_SINGLE = /^'/

@@ -1,4 +1,5 @@
 Keyword
 Whitespace
+Punctuation
 VariableName
 Punctuation

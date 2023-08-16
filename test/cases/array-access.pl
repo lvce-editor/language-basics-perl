@@ -1,0 +1,1 @@
+$vector[$coord + 16] = 1
