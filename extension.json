@@ -9,5 +9,6 @@
       "tokenize": "src/tokenizePerl.js",
       "firstLine": "^#!.*\\bperl\\b"
     }
-  ]
+  ],
+  "repository": "https://github.com/lvce-editor/language-basics-perl"
 }
